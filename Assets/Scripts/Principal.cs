@@ -51,11 +51,11 @@ public class StatePlayer
     }
 }
 
-public abstract class StateMortoOuVivo
+public abstract class StateMortoOuVivo //deve-se sempre colocar abstract class quado se usa metodo virtual ou abstract?
 {
     
     public string Nome;
-    public virtual void Executar()
+    public virtual void Executar() // pq o metodo abstract não funciona aqui se deixar o corpo desta função vazio?
     {
 
     }
