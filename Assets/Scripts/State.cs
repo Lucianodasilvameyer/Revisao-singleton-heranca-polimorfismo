@@ -21,7 +21,7 @@ public abstract class State
 
 public class PlayingState : State
 {
-    public PlayingState(string name)
+    public PlayingState(string name)// o construtor serve para dizer com qual estado se esta lidando?
     {
         stateName = name;
     }

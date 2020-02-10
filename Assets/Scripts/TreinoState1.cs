@@ -2,63 +2,66 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/*public abstract class TreinoState1 
+public class MudarState
 {
-    protected string nomeState;
+    State StateAtual;
 
-    public virtual void Execute()
+    public void TrocarState(State novoState)
     {
-
+        StateAtual = novoState;
     }
 }
-public class statePlaying : TreinoState1 //sem singleton tanto a classe statePlaying quanto a classe statePaused teriam void start() e void awake()?
+public abstract class State
 {
-    public TreinoStateMachine1 treinoStaMa = new TreinoStateMachine1();
-    public statePaused treinoStaPa = new statePaused("Paused");
-    public statePlaying(string name)
-    {
-        nomeState = name;
-    }
-    public override void Execute()
-    {
-        Debug.Log(nomeState);
+    protected string StateAtual;
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            treinoStaMa.modificarState(treinoStaPa);//argumento errado?
-        }
-    }
-    void start()
-    {
-        treinoStaMa.modificarState(treinoStaPa);//argumento errado?
-    }
-    void Update()
-    {
-        treinoStaMa.executar();
-    }
-}
-public class statePaused : TreinoState1
+    public abstract void Enter();
+
+    public abstract void Execute();
+
+    public abstract void Exit();
+} 
+public class Andando: State
 {
-    public TreinoStateMachine1 treinoStaMa = new TreinoStateMachine1();
-    public statePlaying treinoStaPl = new statePlaying("Playing");
-    public statePaused(string name)
+    public andando(string NovoState)
     {
-        nomeState = name;
+        StateAtual = NovoState;
+    }
+    public override void Enter()
+    {
+        Debug.Log("Entrando no estado: " + StateAtual);
     }
     public override void Execute()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            treinoStaMa.modificarState(treinoStaPl);
+
         }
     }
-    void start()
+    public override void Exit()
     {
-        treinoStaMa.modificarState(statePlaying);
-        
+        Debug.Log("Saindo do estado: " + StateAtual);
     }
-    void Update()
+}
+public class Parado: State
+{
+    public Parado(string NovoState)
     {
-        treinoStaMa.executar();
+        StateAtual = NovoState;
     }
-}*/
+    public override void Enter()
+    {
+        Debug.Log("entrando no estado: " + StateAtual);
+    }
+    public override void Execute()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+
+        }
+    }
+    public override void Exit()
+    {
+        Debug.Log("Saindo do estado: " + StateAtual);
+    }
+}
