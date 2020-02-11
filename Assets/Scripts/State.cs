@@ -4,13 +4,19 @@ using UnityEngine;
 
 public abstract class State
 {
-    protected string stateName; //a variavel protected só é acessível dentro de sua classe, por instancias da mesma classe e por herança? 
-    
+    protected string stateName;     //String que armazena o nome do estado
 
-    public virtual void Execute()//o metodo virtual é o q pode ser reescrito em outras classes?
+    //Esta função obrigatoriamente deve ser definida nas classes que a herdarem, por estar marcada como abstract
+    public abstract void Enter();   //Função abstrata que dita o que deve ser feito ao entrar em um estado
+
+    public virtual void Execute()
     {
+        //Mostrar no console o valor da variável "stateName"
         Debug.Log(stateName);
     }
+
+    //Esta função obrigatoriamente deve ser definida nas classes que a herdarem, por estar marcada como abstract
+    public abstract void Exit();    //Função abstrata que dita o que deve ser feito ao sair de um estado
 }
 
 public class PlayingState : State
@@ -20,14 +26,24 @@ public class PlayingState : State
         stateName = name;
     }
 
+    public override void Enter()//só é chamada uma vez só
+    {
+        Debug.Log("Entrando no estado: " + stateName);
+    }
+    
     public override void Execute()
     {
-        Debug.Log(stateName);
+        base.Execute();
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Main.singleton.stateMachine.ChangeState(Main.singleton.paused);//aqui o singleton esta pegando as instancias da classe main, tornando desnecesario cria-las aqui?
+            Main.singleton.stateMachine.ChangeState(Main.singleton.paused);
         }
+    }
+    
+    public override void Exit()
+    {
+        Debug.Log("Saindo do estado: " + stateName);
     }
 }
 
@@ -38,6 +54,11 @@ public class PausedState : State
         stateName = name;
     }
 
+    public override void Enter()
+    {
+        
+    }
+
     public override void Execute()
     {
         Debug.Log(stateName);
@@ -46,5 +67,10 @@ public class PausedState : State
         {
             Main.singleton.stateMachine.ChangeState(Main.singleton.playing);
         }
+    }
+
+    public override void Exit()
+    {
+        
     }
 }

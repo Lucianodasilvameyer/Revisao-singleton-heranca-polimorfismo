@@ -8,12 +8,12 @@ public class Main : MonoBehaviour
 
     public StateMachine stateMachine = new StateMachine();
 
-    public PlayingState playing = new PlayingState("Playing");//aqui na instancia com o construtor, o metodo Execute esta incluido? 
-    public PausedState paused = new PausedState("Paused");//aqui na instancia com o construtor, o metodo Execute esta incluido?
+    public PlayingState playing = new PlayingState("Playing");
+    public PausedState paused = new PausedState("Paused");
 
     void Awake()
     {
-        if(singleton != this && singleton != null) // se o singleton necessario for dirente deste e se tiver algum tem q ser destruido?
+        if(singleton != this && singleton != null)
         {
             GameObject.Destroy(this);
         }
@@ -25,12 +25,11 @@ public class Main : MonoBehaviour
 
     private void Start()
     {
-        stateMachine.ChangeState(playing);//desnecesario playing.execute?
-                                          //a ideia aqui 
+        stateMachine.ChangeState(playing);
     }    
 
     void Update()
-    {
+    {       
         stateMachine.ExecuteState();
     }
 }
